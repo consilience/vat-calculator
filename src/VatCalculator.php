@@ -1,9 +1,9 @@
 <?php
 
-namespace Mpociot\VatCalculator;
+namespace Sprocketbox\VatCalculator;
 
 use Illuminate\Contracts\Config\Repository;
-use Mpociot\VatCalculator\Exceptions\VATCheckUnavailableException;
+use Sprocketbox\VatCalculator\Exceptions\VATCheckUnavailableException;
 use SoapClient;
 use SoapFault;
 

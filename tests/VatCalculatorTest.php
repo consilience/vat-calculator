@@ -1,6 +1,6 @@
 <?php
 
-namespace Mpociot\VatCalculator;
+namespace Sprocketbox\VatCalculator;
 
 use Mockery as m;
 use PHPUnit_Framework_TestCase as PHPUnit;
@@ -443,7 +443,7 @@ class VatCalculatorTest extends PHPUnit
 
     public function testValidateVATNumberThrowsExceptionOnSoapFailure()
     {
-        $this->setExpectedException(\Mpociot\VatCalculator\Exceptions\VATCheckUnavailableException::class);
+        $this->setExpectedException(\Sprocketbox\VatCalculator\Exceptions\VATCheckUnavailableException::class);
         $vatCheck = $this->getMockFromWsdl(__DIR__.'/checkVatService.wsdl', 'VATService');
         $vatCheck->expects($this->any())
             ->method('checkVat')
@@ -471,7 +471,7 @@ class VatCalculatorTest extends PHPUnit
 
     public function testCannotValidateVATNumberWhenServiceIsDown()
     {
-        $this->setExpectedException(\Mpociot\VatCalculator\Exceptions\VATCheckUnavailableException::class);
+        $this->setExpectedException(\Sprocketbox\VatCalculator\Exceptions\VATCheckUnavailableException::class);
 
         $result = new \stdClass();
         $result->valid = false;

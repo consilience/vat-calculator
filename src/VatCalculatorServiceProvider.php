@@ -1,6 +1,6 @@
 <?php
 
-namespace Mpociot\VatCalculator;
+namespace Sprocketbox\VatCalculator;
 
 /*
  * This file is part of Teamwork
@@ -11,7 +11,7 @@ namespace Mpociot\VatCalculator;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
-use Mpociot\VatCalculator\Facades\VatCalculator;
+use Sprocketbox\VatCalculator\Facades\VatCalculator;
 
 class VatCalculatorServiceProvider extends ServiceProvider
 {
@@ -41,12 +41,12 @@ class VatCalculatorServiceProvider extends ServiceProvider
     {
         // Publish config files
         $this->publishes([
-            __DIR__.'/../../config/config.php'           => config_path('vat_calculator.php'),
-            __DIR__.'/../../public/js/vat_calculator.js' => public_path('js/vat_calculator.js'),
+            __DIR__.'/../config/config.php'           => config_path('vat_calculator.php'),
+            __DIR__.'/../resources/js/vat_calculator.js' => public_path('js/vat_calculator.js'),
         ]);
 
         $this->publishes([
-            __DIR__.'/../../public/js/vat_calculator.js' => base_path('resources/assets/js/vat_calculator.js'),
+            __DIR__.'/../resources/js/vat_calculator.js' => base_path('resources/assets/js/vat_calculator.js'),
         ], 'vatcalculator-spark');
     }
 
@@ -69,12 +69,12 @@ class VatCalculatorServiceProvider extends ServiceProvider
      */
     protected function registerVatCalculator()
     {
-        $this->app->bind('vatcalculator', '\Mpociot\VatCalculator\VatCalculator');
+        $this->app->bind('vatcalculator', '\Sprocketbox\VatCalculator\VatCalculator');
 
-        $this->app->bind('\Mpociot\VatCalculator\VatCalculator', function ($app) {
+        $this->app->bind('\Sprocketbox\VatCalculator\VatCalculator', function ($app) {
             $config = $app->make('Illuminate\Contracts\Config\Repository');
 
-            return new \Mpociot\VatCalculator\VatCalculator($config);
+            return new \Sprocketbox\VatCalculator\VatCalculator($config);
         });
     }
 
@@ -87,7 +87,7 @@ class VatCalculatorServiceProvider extends ServiceProvider
     {
         $this->app->booting(function () {
             $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-            $loader->alias('VatCalculator', 'Mpociot\VatCalculator\Facades\VatCalculator');
+            $loader->alias('VatCalculator', 'Sprocketbox\VatCalculator\Facades\VatCalculator');
         });
     }
 
@@ -99,19 +99,19 @@ class VatCalculatorServiceProvider extends ServiceProvider
     protected function mergeConfig()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../../config/config.php', 'vat_calculator'
+            __DIR__.'/../config/config.php', 'vat_calculator'
         );
     }
 
     protected function registerValidatorExtension()
     {
         $this->loadTranslationsFrom(
-            __DIR__.'/../../lang',
+            __DIR__.'/../lang',
             'vatnumber-validator'
         );
 
         $this->app['validator']->extend('vat_number',
-            'Mpociot\VatCalculator\Validators\VatCalculatorValidatorExtension@validateVatNumber');
+            'Sprocketbox\VatCalculator\Validators\VatCalculatorValidatorExtension@validateVatNumber');
     }
 
     /**
@@ -122,7 +122,7 @@ class VatCalculatorServiceProvider extends ServiceProvider
     {
         $config = $this->app->make('Illuminate\Contracts\Config\Repository');
         if ($config->get('vat_calculator.use_routes', true)) {
-            include __DIR__.'/../../routes.php';
+            include __DIR__.'/routes.php';
         }
     }
 }

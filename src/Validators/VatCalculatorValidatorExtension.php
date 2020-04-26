@@ -1,10 +1,10 @@
 <?php
 
-namespace Mpociot\VatCalculator\Validators;
+namespace Sprocketbox\VatCalculator\Validators;
 
 use Illuminate\Validation\Validator;
-use Mpociot\VatCalculator\Exceptions\VATCheckUnavailableException;
-use Mpociot\VatCalculator\Facades\VatCalculator;
+use Sprocketbox\VatCalculator\Exceptions\VATCheckUnavailableException;
+use Sprocketbox\VatCalculator\Facades\VatCalculator;
 
 class VatCalculatorValidatorExtension
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mpociot\VatCalculator\Exceptions;
+namespace Sprocketbox\VatCalculator\Exceptions;
 
 use Exception;
 

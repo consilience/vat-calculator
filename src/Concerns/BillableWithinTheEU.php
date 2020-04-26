@@ -1,8 +1,8 @@
 <?php
 
-namespace Mpociot\VatCalculator\Traits;
+namespace Sprocketbox\VatCalculator\Concerns;
 
-use Mpociot\VatCalculator\Facades\VatCalculator;
+use Sprocketbox\VatCalculator\Facades\VatCalculator;
 
 trait BillableWithinTheEU
 {

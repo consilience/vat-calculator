@@ -1,45 +1,55 @@
 {
-    "name": "mpociot/vat-calculator",
-    "description": "EU VAT calculation, the way it should be.",
-    "keywords": ["VAT","Tax","EU MOSS", "VAT ID", "tax calculation", "vat calculation", "cashier"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Marcel Pociot",
-            "email": "m.pociot@gmail.com"
-        }
-    ],
-    "require": {
-      "php": ">=5.5.9",
-      "ext-soap": "*"
+  "name": "sprocketbox/vat-calculator",
+  "description": "EU VAT calculation, the way it should be.",
+  "keywords": [
+    "VAT",
+    "Tax",
+    "EU MOSS",
+    "VAT ID",
+    "tax calculation",
+    "vat calculation",
+    "cashier"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Marcel Pociot",
+      "email": "m.pociot@gmail.com"
     },
-    "require-dev": {
-        "illuminate/support": "~5.0",
-        "illuminate/validation": "~5.0",
-        "mockery/mockery": "dev-master",
-        "orchestra/testbench": "~3.0",
-        "phpunit/phpunit": "4.7.*"
-    },
-    "autoload": {
-        "classmap": [
-            "src/controllers/Controller.php"
-        ],
-        "psr-0": {
-            "Mpociot\\VatCalculator": "src/"
-        }
-    },
-    "minimum-stability": "stable",
-    "scripts": {
-        "test": "phpunit"
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Mpociot\\VatCalculator\\VatCalculatorServiceProvider"
-            ],
-            "aliases": {
-                "VatCalculator": "Mpociot\\VatCalculator\\Facades\\VatCalculator"
-            }
-        }
+    {
+      "name": "Ollie Read",
+      "email": "ollie@sprocketbox.io"
     }
+  ],
+  "require": {
+    "php": "^7.2",
+    "ext-soap": "*",
+    "illuminate/support": "~6.0",
+    "illuminate/config": "~6.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^4.0",
+    "mockery/mockery": "^1.0",
+    "nunomaduro/collision": "^3.0",
+    "phpunit/phpunit": "^8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Sprocketbox\\VatCalculator\\": "src/"
+    }
+  },
+  "minimum-stability": "stable",
+  "scripts": {
+    "test": "phpunit"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Sprocketbox\\VatCalculator\\VatCalculatorServiceProvider"
+      ],
+      "aliases": {
+        "VatCalculator": "Sprocketbox\\VatCalculator\\Facades\\VatCalculator"
+      }
+    }
+  }
 }

@@ -2,14 +2,16 @@ VatCalculator
 ================
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://travis-ci.org/mpociot/vat-calculator.svg)](https://travis-ci.org/mpociot/vat-calculator)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mpociot/vat-calculator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mpociot/vat-calculator/?branch=master)
-[![codecov.io](https://codecov.io/github/mpociot/vat-calculator/coverage.svg?branch=master)](https://codecov.io/github/mpociot/vat-calculator?branch=master)
+[![Build Status](https://travis-ci.org/sprocketbox/vat-calculator.svg)](https://travis-ci.org/sprocketbox/vat-calculator)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sprocketbox/vat-calculator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sprocketbox/vat-calculator/?branch=master)
+[![codecov.io](https://codecov.io/github/sprocketbox/vat-calculator/coverage.svg?branch=master)](https://codecov.io/github/sprocketbox/vat-calculator?branch=master)
 [![StyleCI](https://styleci.io/repos/41703624/shield)](https://styleci.io/repos/41703624)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/adecb98a-8484-48cb-be13-803decc475bc/mini.png)](https://insight.sensiolabs.com/projects/adecb98a-8484-48cb-be13-803decc475bc)
 
 Handle all the hard stuff related to EU MOSS tax/vat regulations, the way it should be.
-Can be used with **Laravel 5 / Cashier** &mdash; or **standalone**.
+Can be used with **Laravel 6 / Cashier** &mdash; or **standalone**.
+
+This is a fork of [mcpociot/vat-calculator](https://github.com/Sprocketbox/vat-calculator) updated to work with Laravel 6.
 
 ```php
 // Easy to use!
@@ -50,7 +52,7 @@ VatCalculator::isValidVATNumber('NL123456789B01');
 In order to install the VAT Calculator, just run
 
 ```bash
-$ composer require mpociot/vat-calculator
+$ composer require sprocketbox/vat-calculator
 ```
 	
 <a name="installation-standalone"></a>
@@ -62,7 +64,7 @@ All documentation examples use the Laravel 5 facade code, so make sure not to ca
 Example:
 
 ```php
-use Mpociot\VatCalculator\VatCalculator;
+use Sprocketbox\VatCalculator\VatCalculator;
 
 $vatCalculator = new VatCalculator();
 $vatCalculator->setBusinessCountryCode('DE');
@@ -177,7 +179,7 @@ If you want to use this package in combination with [Laravel Cashier](https://gi
 
 ```php
 use Laravel\Cashier\Billable;
-use Mpociot\VatCalculator\Traits\BillableWithinTheEU;
+use Sprocketbox\VatCalculator\Concerns\BillableWithinTheEU;
 use Laravel\Cashier\Contracts\Billable as BillableContract;
 
 class User extends Model implements BillableContract
@@ -245,7 +247,7 @@ The Javascript library has no dependencies on third party frameworks.
 In order to use the Javascript helper you need to publish the package files first. Go ahead and type:
 
 ```bash
-$ php artisan vendor:publish --provider="Mpociot\VatCalculator\VatCalculatorServiceProvider"
+$ php artisan vendor:publish --provider="Sprocketbox\VatCalculator\VatCalculatorServiceProvider"
 ```
 
 Now you have a file called `vat_calculator.js` in your `public/js` folder.
@@ -386,14 +388,14 @@ By default, the VAT Calculator has all EU VAT rules predefined, so that it can e
 
 If you need to define other VAT rates, you can do so by publishing the configuration and add more rules.
 
-The configuration file also determines wether you want to use the VAT Calculator JS routes or not.
+The configuration file also determines whether you want to use the VAT Calculator JS routes or not.
 
 **Important:** Be sure to set your business country code in the configuration file, to get correct VAT calculation when selling to business customers in your own country.
 
 To publish the configuration files, run the `vendor:publish` command
 
 ```bash
-$ php artisan vendor:publish --provider="Mpociot\VatCalculator\VatCalculatorServiceProvider"
+$ php artisan vendor:publish --provider="Sprocketbox\VatCalculator\VatCalculatorServiceProvider"
 ```
 
 This will create a `vat_calculator.php` in your config directory.

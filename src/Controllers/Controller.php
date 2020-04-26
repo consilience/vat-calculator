@@ -1,12 +1,12 @@
 <?php
 
-namespace Mpociot\VatCalculator\Http;
+namespace Sprocketbox\VatCalculator\Http;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Response;
-use Mpociot\VatCalculator\Exceptions\VATCheckUnavailableException;
-use Mpociot\VatCalculator\VatCalculator;
+use Sprocketbox\VatCalculator\Exceptions\VATCheckUnavailableException;
+use Sprocketbox\VatCalculator\VatCalculator;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class Controller extends BaseController
@@ -18,7 +18,7 @@ class Controller extends BaseController
 
     public function __construct(ConfigRepository $configRepository)
     {
-        $this->calculator = new \Mpociot\VatCalculator\VatCalculator($configRepository);
+        $this->calculator = new \Sprocketbox\VatCalculator\VatCalculator($configRepository);
     }
 
     /**
@@ -82,7 +82,7 @@ class Controller extends BaseController
      *
      * @param string $vat_id
      *
-     * @throws \Mpociot\VatCalculator\Exceptions\VATCheckUnavailableException
+     * @throws \Sprocketbox\VatCalculator\Exceptions\VATCheckUnavailableException
      *
      * @return \Illuminate\Http\Response
      */
