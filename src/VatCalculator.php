@@ -600,6 +600,11 @@ class VatCalculator
         return $this->getTaxRateForLocation($countryCode, null, $company, $type);
     }
 
+    public function getTaxRules()
+    {
+        return $this->taxRules;
+    }
+
     /**
      * Returns the tax rate for the given country code.
      * If a postal code is provided, it will try to lookup the different

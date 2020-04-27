@@ -9,9 +9,9 @@ namespace Sprocketbox\VatCalculator;
  * @package Teamwork
  */
 
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Config\Repository;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Sprocketbox\VatCalculator\Facades\VatCalculator;
 
 class VatCalculatorServiceProvider extends ServiceProvider
 {
@@ -35,22 +35,6 @@ class VatCalculatorServiceProvider extends ServiceProvider
     }
 
     /**
-     * Publish Teamwork configuration.
-     */
-    protected function publishConfig()
-    {
-        // Publish config files
-        $this->publishes([
-            __DIR__.'/../config/config.php'           => config_path('vat_calculator.php'),
-            __DIR__.'/../resources/js/vat_calculator.js' => public_path('js/vat_calculator.js'),
-        ]);
-
-        $this->publishes([
-            __DIR__.'/../resources/js/vat_calculator.js' => base_path('resources/assets/js/vat_calculator.js'),
-        ], 'vatcalculator-spark');
-    }
-
-    /**
      * Register the service provider.
      *
      * @return void
@@ -63,22 +47,6 @@ class VatCalculatorServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the application bindings.
-     *
-     * @return void
-     */
-    protected function registerVatCalculator()
-    {
-        $this->app->bind('vatcalculator', '\Sprocketbox\VatCalculator\VatCalculator');
-
-        $this->app->bind('\Sprocketbox\VatCalculator\VatCalculator', function ($app) {
-            $config = $app->make('Illuminate\Contracts\Config\Repository');
-
-            return new \Sprocketbox\VatCalculator\VatCalculator($config);
-        });
-    }
-
-    /**
      * Register the vault facade without the user having to add it to the app.php file.
      *
      * @return void
@@ -86,8 +54,41 @@ class VatCalculatorServiceProvider extends ServiceProvider
     public function registerFacade()
     {
         $this->app->booting(function () {
-            $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+            $loader = AliasLoader::getInstance();
             $loader->alias('VatCalculator', 'Sprocketbox\VatCalculator\Facades\VatCalculator');
+        });
+    }
+
+    /**
+     * Publish Teamwork configuration.
+     */
+    protected function publishConfig()
+    {
+        // Publish config files
+        $this->publishes([
+            __DIR__ . '/../config/config.php'              => config_path('vat_calculator.php'),
+            __DIR__ . '/../resources/js/vat_calculator.js' => public_path('js/vat_calculator.js'),
+        ]);
+
+        $this->publishes([
+            __DIR__ . '/../resources/js/vat_calculator.js' => base_path('resources/assets/js/vat_calculator.js'),
+        ], 'vatcalculator-spark');
+    }
+
+    /**
+     * Register the application bindings.
+     *
+     * @return void
+     */
+    protected function registerVatCalculator()
+    {
+        $this->app->bind('vatcalculator', VatCalculator::class);
+        $this->app->alias('vatcalculator', VatCalculator::class);
+
+        $this->app->bind(VatCalculator::class, static function ($app) {
+            $config = $app->make(Repository::class);
+
+            return new VatCalculator($config);
         });
     }
 
@@ -99,14 +100,14 @@ class VatCalculatorServiceProvider extends ServiceProvider
     protected function mergeConfig()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/config.php', 'vat_calculator'
+            __DIR__ . '/../config/config.php', 'vat_calculator'
         );
     }
 
     protected function registerValidatorExtension()
     {
         $this->loadTranslationsFrom(
-            __DIR__.'/../lang',
+            __DIR__ . '/../lang',
             'vatnumber-validator'
         );
 
@@ -122,7 +123,7 @@ class VatCalculatorServiceProvider extends ServiceProvider
     {
         $config = $this->app->make('Illuminate\Contracts\Config\Repository');
         if ($config->get('vat_calculator.use_routes', true)) {
-            include __DIR__.'/routes.php';
+            include __DIR__ . '/routes.php';
         }
     }
 }
