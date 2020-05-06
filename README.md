@@ -2,8 +2,8 @@ VatCalculator
 ================
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://travis-ci.org/sprocketbox/vat-calculator.svg)](https://travis-ci.org/sprocketbox/vat-calculator)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sprocketbox/vat-calculator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sprocketbox/vat-calculator/?branch=master)
+[![Build Status](https://travis-ci.org/consilience/vat-calculator.svg)](https://travis-ci.org/consilience/vat-calculator)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/consilience/vat-calculator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sprocketbox/vat-calculator/?branch=master)
 [![codecov.io](https://codecov.io/github/sprocketbox/vat-calculator/coverage.svg?branch=master)](https://codecov.io/github/sprocketbox/vat-calculator?branch=master)
 [![StyleCI](https://styleci.io/repos/41703624/shield)](https://styleci.io/repos/41703624)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/adecb98a-8484-48cb-be13-803decc475bc/mini.png)](https://insight.sensiolabs.com/projects/adecb98a-8484-48cb-be13-803decc475bc)
@@ -11,7 +11,7 @@ VatCalculator
 Handle all the hard stuff related to EU MOSS tax/vat regulations, the way it should be.
 Can be used with **Laravel 6 / Cashier** &mdash; or **standalone**.
 
-This is a fork of [mcpociot/vat-calculator](https://github.com/Sprocketbox/vat-calculator) updated to work with Laravel 6.
+This is a fork of [mcpociot/vat-calculator](https://github.com/consilience/vat-calculator) updated to work with Laravel 6.
 
 ```php
 // Easy to use!
@@ -64,7 +64,7 @@ All documentation examples use the Laravel 5 facade code, so make sure not to ca
 Example:
 
 ```php
-use Sprocketbox\VatCalculator\VatCalculator;
+use Consilience\VatCalculator\VatCalculator;
 
 $vatCalculator = new VatCalculator();
 $vatCalculator->setBusinessCountryCode('DE');
@@ -179,7 +179,7 @@ If you want to use this package in combination with [Laravel Cashier](https://gi
 
 ```php
 use Laravel\Cashier\Billable;
-use Sprocketbox\VatCalculator\Concerns\BillableWithinTheEU;
+use Consilience\VatCalculator\Concerns\BillableWithinTheEU;
 use Laravel\Cashier\Contracts\Billable as BillableContract;
 
 class User extends Model implements BillableContract
@@ -247,7 +247,7 @@ The Javascript library has no dependencies on third party frameworks.
 In order to use the Javascript helper you need to publish the package files first. Go ahead and type:
 
 ```bash
-$ php artisan vendor:publish --provider="Sprocketbox\VatCalculator\VatCalculatorServiceProvider"
+$ php artisan vendor:publish --provider="Consilience\VatCalculator\VatCalculatorServiceProvider"
 ```
 
 Now you have a file called `vat_calculator.js` in your `public/js` folder.
@@ -395,7 +395,7 @@ The configuration file also determines whether you want to use the VAT Calculato
 To publish the configuration files, run the `vendor:publish` command
 
 ```bash
-$ php artisan vendor:publish --provider="Sprocketbox\VatCalculator\VatCalculatorServiceProvider"
+$ php artisan vendor:publish --provider="Consilience\VatCalculator\VatCalculatorServiceProvider"
 ```
 
 This will create a `vat_calculator.php` in your config directory.

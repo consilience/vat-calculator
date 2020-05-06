@@ -1,6 +1,6 @@
 <?php
 
-namespace Sprocketbox\VatCalculator;
+namespace Consilience\VatCalculator;
 
 /*
  * This file is part of Teamwork
@@ -55,7 +55,7 @@ class VatCalculatorServiceProvider extends ServiceProvider
     {
         $this->app->booting(function () {
             $loader = AliasLoader::getInstance();
-            $loader->alias('VatCalculator', 'Sprocketbox\VatCalculator\Facades\VatCalculator');
+            $loader->alias('VatCalculator', 'Consilience\VatCalculator\Facades\VatCalculator');
         });
     }
 
@@ -112,7 +112,7 @@ class VatCalculatorServiceProvider extends ServiceProvider
         );
 
         $this->app['validator']->extend('vat_number',
-            'Sprocketbox\VatCalculator\Validators\VatCalculatorValidatorExtension@validateVatNumber');
+            'Consilience\VatCalculator\Validators\VatCalculatorValidatorExtension@validateVatNumber');
     }
 
     /**

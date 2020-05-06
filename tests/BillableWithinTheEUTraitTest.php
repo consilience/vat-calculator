@@ -1,9 +1,9 @@
 <?php
 
-namespace Sprocketbox\VatCalculator\Tests;
+namespace Consilience\VatCalculator\Tests;
 
 use Mockery as m;
-use Sprocketbox\VatCalculator\Facades\VatCalculator;
+use Consilience\VatCalculator\Facades\VatCalculator;
 use PHPUnit_Framework_TestCase as PHPUnit;
 
 class BillableWithinTheEUTraitTest extends PHPUnit
@@ -92,5 +92,5 @@ class BillableWithinTheEUTraitTest extends PHPUnit
 
 class BillableWithinTheEUTraitTestStub
 {
-    use \Sprocketbox\VatCalculator\Concerns\BillableWithinTheEU;
+    use \Consilience\VatCalculator\Concerns\BillableWithinTheEU;
 }

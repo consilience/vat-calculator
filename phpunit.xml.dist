@@ -16,7 +16,7 @@
     </testsuites>
     <filter>
         <whitelist>
-            <directory suffix=".php">src/Sprocketbox/</directory>
+            <directory suffix=".php">src/Consilience/</directory>
         </whitelist>
     </filter>
 </phpunit>

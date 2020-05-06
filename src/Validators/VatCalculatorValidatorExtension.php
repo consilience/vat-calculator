@@ -1,10 +1,10 @@
 <?php
 
-namespace Sprocketbox\VatCalculator\Validators;
+namespace Consilience\VatCalculator\Validators;
 
 use Illuminate\Validation\Validator;
-use Sprocketbox\VatCalculator\Exceptions\VATCheckUnavailableException;
-use Sprocketbox\VatCalculator\Facades\VatCalculator;
+use Consilience\VatCalculator\Exceptions\VATCheckUnavailableException;
+use Consilience\VatCalculator\Facades\VatCalculator;
 
 class VatCalculatorValidatorExtension
 {

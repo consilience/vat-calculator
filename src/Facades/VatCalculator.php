@@ -1,6 +1,6 @@
 <?php
 
-namespace Sprocketbox\VatCalculator\Facades;
+namespace Consilience\VatCalculator\Facades;
 
 class VatCalculator extends \Illuminate\Support\Facades\Facade
 {

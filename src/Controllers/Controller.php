@@ -1,12 +1,12 @@
 <?php
 
-namespace Sprocketbox\VatCalculator\Http;
+namespace Consilience\VatCalculator\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Response;
-use Sprocketbox\VatCalculator\Exceptions\VATCheckUnavailableException;
-use Sprocketbox\VatCalculator\VatCalculator;
+use Consilience\VatCalculator\Exceptions\VATCheckUnavailableException;
+use Consilience\VatCalculator\VatCalculator;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class Controller extends BaseController
@@ -18,7 +18,7 @@ class Controller extends BaseController
 
     public function __construct(ConfigRepository $configRepository)
     {
-        $this->calculator = new \Sprocketbox\VatCalculator\VatCalculator($configRepository);
+        $this->calculator = new VatCalculator($configRepository);
     }
 
     /**
@@ -82,7 +82,7 @@ class Controller extends BaseController
      *
      * @param string $vat_id
      *
-     * @throws \Sprocketbox\VatCalculator\Exceptions\VATCheckUnavailableException
+     * @throws \Consilience\VatCalculator\Exceptions\VATCheckUnavailableException
      *
      * @return \Illuminate\Http\Response
      */

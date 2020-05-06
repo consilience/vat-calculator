@@ -1,5 +1,5 @@
 {
-  "name": "sprocketbox/vat-calculator",
+  "name": "consilience/vat-calculator",
   "description": "EU VAT calculation, the way it should be.",
   "keywords": [
     "VAT",
@@ -35,7 +35,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Sprocketbox\\VatCalculator\\": "src/"
+      "Consilience\\VatCalculator\\": "src/"
     }
   },
   "minimum-stability": "stable",
@@ -45,10 +45,10 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Sprocketbox\\VatCalculator\\VatCalculatorServiceProvider"
+        "Consilience\\VatCalculator\\VatCalculatorServiceProvider"
       ],
       "aliases": {
-        "VatCalculator": "Sprocketbox\\VatCalculator\\Facades\\VatCalculator"
+        "VatCalculator": "Consilience\\VatCalculator\\Facades\\VatCalculator"
       }
     }
   }

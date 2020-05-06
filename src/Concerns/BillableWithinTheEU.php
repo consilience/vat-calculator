@@ -1,8 +1,8 @@
 <?php
 
-namespace Sprocketbox\VatCalculator\Concerns;
+namespace Consilience\VatCalculator\Concerns;
 
-use Sprocketbox\VatCalculator\Facades\VatCalculator;
+use Consilience\VatCalculator\Facades\VatCalculator;
 
 trait BillableWithinTheEU
 {

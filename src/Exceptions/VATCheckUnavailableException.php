@@ -1,6 +1,6 @@
 <?php
 
-namespace Sprocketbox\VatCalculator\Exceptions;
+namespace Consilience\VatCalculator\Exceptions;
 
 use Exception;
 
