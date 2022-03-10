@@ -22,10 +22,10 @@
     }
   ],
   "require": {
-    "php": "^7.2",
+    "php": "^8.1",
     "ext-soap": "*",
-    "illuminate/support": "^7.29",
-    "illuminate/config": "^7.29"
+    "illuminate/support": "^8.83",
+    "illuminate/config": "^8.83"
   },
   "require-dev": {
     "orchestra/testbench": "^4.0",
