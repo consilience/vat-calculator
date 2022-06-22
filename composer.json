@@ -24,8 +24,8 @@
   "require": {
     "php": "^8.1",
     "ext-soap": "*",
-    "illuminate/support": "^9",
-    "illuminate/config": "^9"
+    "illuminate/support": "^9.18",
+    "illuminate/config": "^9.18"
   },
   "require-dev": {
     "orchestra/testbench": "^4.0",
