@@ -3,18 +3,18 @@
 namespace Consilience\VatCalculator;
 
 use Mockery as m;
-use PHPUnit_Framework_TestCase as PHPUnit;
+use PHPUnit\Framework\TestCase;
 
 function file_get_contents($url)
 {
     return VatCalculatorTest::$file_get_contents_result ?: \file_get_contents($url);
 }
 
-class VatCalculatorTest extends PHPUnit
+class VatCalculatorTest extends TestCase
 {
     public static $file_get_contents_result;
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }
@@ -37,7 +37,7 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator($config);
         $result = $vatCalculator->calculate($net);
-        $this->assertEquals(25.00, $result);
+        $this->assertEqualsWithDelta(25.00, $result, 0.01);
     }
 
     public function testCalculateVatWithoutCountryAndConfig()
@@ -46,7 +46,7 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator();
         $result = $vatCalculator->calculate($net);
-        $this->assertEquals(25.00, $result);
+        $this->assertEqualsWithDelta(25.00, $result, 0.01);
     }
 
     public function testCalculateVatWithPredefinedRules()
@@ -70,9 +70,9 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator($config);
         $result = $vatCalculator->calculate($net, $countryCode);
-        $this->assertEquals(28.56, $result);
-        $this->assertEquals(0.19, $vatCalculator->getTaxRate());
-        $this->assertEquals(4.56, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(28.56, $result, 0.01);
+        $this->assertEqualsWithDelta(0.19, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(4.56, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testCalculateVatWithPredefinedRulesWithoutConfig()
@@ -82,9 +82,9 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator();
         $result = $vatCalculator->calculate($net, $countryCode);
-        $this->assertEquals(28.56, $result);
-        $this->assertEquals(0.19, $vatCalculator->getTaxRate());
-        $this->assertEquals(4.56, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(28.56, $result, 0.01);
+        $this->assertEqualsWithDelta(0.19, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(4.56, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testCalculateVatWithPredefinedRulesOverwrittenByConfiguration()
@@ -112,9 +112,9 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator($config);
         $result = $vatCalculator->calculate($net, $countryCode);
-        $this->assertEquals(36.00, $result);
-        $this->assertEquals(0.50, $vatCalculator->getTaxRate());
-        $this->assertEquals(12.00, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(36.00, $result, 0.01);
+        $this->assertEqualsWithDelta(0.50, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(12.00, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testCalculatVatWithCountryDirectSet()
@@ -140,9 +140,9 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator($config);
         $result = $vatCalculator->calculate($net, $countryCode);
-        $this->assertEquals(28.56, $result);
-        $this->assertEquals(0.19, $vatCalculator->getTaxRate());
-        $this->assertEquals(4.56, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(28.56, $result, 0.01);
+        $this->assertEqualsWithDelta(0.19, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(4.56, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testCalculatVatWithCountryDirectSetWithoutConfiguration()
@@ -152,9 +152,9 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator();
         $result = $vatCalculator->calculate($net, $countryCode);
-        $this->assertEquals(28.56, $result);
-        $this->assertEquals(0.19, $vatCalculator->getTaxRate());
-        $this->assertEquals(4.56, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(28.56, $result, 0.01);
+        $this->assertEqualsWithDelta(0.19, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(4.56, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testCalculatVatWithCountryPreviousSet()
@@ -182,9 +182,9 @@ class VatCalculatorTest extends PHPUnit
         $vatCalculator->setCountryCode($countryCode);
 
         $result = $vatCalculator->calculate($net);
-        $this->assertEquals(28.56, $result);
-        $this->assertEquals(0.19, $vatCalculator->getTaxRate());
-        $this->assertEquals(4.56, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(28.56, $result, 0.01);
+        $this->assertEqualsWithDelta(0.19, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(4.56, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testCalculatVatWithCountryAndCompany()
@@ -205,7 +205,7 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator($config);
         $result = $vatCalculator->calculate($net, $countryCode, $postalCode, $company);
-        $this->assertEquals(24.00, $result);
+        $this->assertEqualsWithDelta(24.00, $result, 0.01);
         $this->assertEquals(0, $vatCalculator->getTaxRate());
         $this->assertEquals(0, $vatCalculator->getTaxValue());
     }
@@ -228,7 +228,7 @@ class VatCalculatorTest extends PHPUnit
         $vatCalculator = new VatCalculator($config);
         $vatCalculator->setCompany($company);
         $result = $vatCalculator->calculate($net, $countryCode);
-        $this->assertEquals(24.00, $result);
+        $this->assertEqualsWithDelta(24.00, $result, 0.01);
         $this->assertEquals(24.00, $vatCalculator->getNetPrice());
         $this->assertEquals(0, $vatCalculator->getTaxRate());
         $this->assertEquals(0, $vatCalculator->getTaxValue());
@@ -253,7 +253,7 @@ class VatCalculatorTest extends PHPUnit
         $vatCalculator->setCountryCode($countryCode);
         $vatCalculator->setCompany($company);
         $result = $vatCalculator->calculate($net);
-        $this->assertEquals(24.00, $result);
+        $this->assertEqualsWithDelta(24.00, $result, 0.01);
         $this->assertEquals(0, $vatCalculator->getTaxRate());
         $this->assertEquals(0, $vatCalculator->getTaxValue());
     }
@@ -280,7 +280,7 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator($config);
         $result = $vatCalculator->getTaxRateForLocation($countryCode);
-        $this->assertEquals(0.19, $result);
+        $this->assertEqualsWithDelta(0.19, $result, 0.01);
     }
 
     public function testGetTaxRateForCountry()
@@ -305,7 +305,7 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator($config);
         $result = $vatCalculator->getTaxRateForCountry($countryCode);
-        $this->assertEquals(0.19, $result);
+        $this->assertEqualsWithDelta(0.19, $result, 0.01);
     }
 
     public function testGetTaxRateForLocationWithCountryAndCompany()
@@ -443,7 +443,7 @@ class VatCalculatorTest extends PHPUnit
 
     public function testValidateVATNumberThrowsExceptionOnSoapFailure()
     {
-        $this->setExpectedException(\Consilience\VatCalculator\Exceptions\VATCheckUnavailableException::class);
+        $this->expectException(\Consilience\VatCalculator\Exceptions\VATCheckUnavailableException::class);
         $vatCheck = $this->getMockFromWsdl(__DIR__.'/checkVatService.wsdl', 'VATService');
         $vatCheck->expects($this->any())
             ->method('checkVat')
@@ -471,7 +471,7 @@ class VatCalculatorTest extends PHPUnit
 
     public function testCannotValidateVATNumberWhenServiceIsDown()
     {
-        $this->setExpectedException(\Consilience\VatCalculator\Exceptions\VATCheckUnavailableException::class);
+        $this->expectException(\Consilience\VatCalculator\Exceptions\VATCheckUnavailableException::class);
 
         $result = new \stdClass();
         $result->valid = false;
@@ -533,9 +533,9 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator($config);
         $result = $vatCalculator->calculate($net, $countryCode, null, true);
-        $this->assertEquals(28.56, $result);
-        $this->assertEquals(0.19, $vatCalculator->getTaxRate());
-        $this->assertEquals(4.56, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(28.56, $result, 0.01);
+        $this->assertEqualsWithDelta(0.19, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(4.56, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testCompanyInBusinessCountryGetsValidVATRateDirectSet()
@@ -546,9 +546,9 @@ class VatCalculatorTest extends PHPUnit
         $vatCalculator = new VatCalculator();
         $vatCalculator->setBusinessCountryCode('DE');
         $result = $vatCalculator->calculate($net, $countryCode, null, true);
-        $this->assertEquals(28.56, $result);
-        $this->assertEquals(0.19, $vatCalculator->getTaxRate());
-        $this->assertEquals(4.56, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(28.56, $result, 0.01);
+        $this->assertEqualsWithDelta(0.19, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(4.56, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testCompanyOutsideBusinessCountryGetsValidVATRate()
@@ -559,9 +559,9 @@ class VatCalculatorTest extends PHPUnit
         $vatCalculator = new VatCalculator();
         $vatCalculator->setBusinessCountryCode('NL');
         $result = $vatCalculator->calculate($net, $countryCode, null, true);
-        $this->assertEquals(24.00, $result);
-        $this->assertEquals(0.00, $vatCalculator->getTaxRate());
-        $this->assertEquals(0.00, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(24.00, $result, 0.01);
+        $this->assertEqualsWithDelta(0.00, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(0.00, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testReturnsZeroForInvalidCountryCode()
@@ -571,9 +571,9 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator();
         $result = $vatCalculator->calculate($net, $countryCode, null, true);
-        $this->assertEquals(24.00, $result);
-        $this->assertEquals(0.00, $vatCalculator->getTaxRate());
-        $this->assertEquals(0.00, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(24.00, $result, 0.01);
+        $this->assertEqualsWithDelta(0.00, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(0.00, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testChecksPostalCodeForVATExceptions()
@@ -582,27 +582,27 @@ class VatCalculatorTest extends PHPUnit
         $vatCalculator = new VatCalculator();
         $postalCode = '27498'; // Heligoland
         $result = $vatCalculator->calculate($net, 'DE', $postalCode, false);
-        $this->assertEquals(24.00, $result);
-        $this->assertEquals(0.00, $vatCalculator->getTaxRate());
-        $this->assertEquals(0.00, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(24.00, $result, 0.01);
+        $this->assertEqualsWithDelta(0.00, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(0.00, $vatCalculator->getTaxValue(), 0.01);
 
         $postalCode = '6691'; // Jungholz
         $result = $vatCalculator->calculate($net, 'AT', $postalCode, false);
-        $this->assertEquals(28.56, $result);
-        $this->assertEquals(0.19, $vatCalculator->getTaxRate());
-        $this->assertEquals(4.56, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(28.56, $result, 0.01);
+        $this->assertEqualsWithDelta(0.19, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(4.56, $vatCalculator->getTaxValue(), 0.01);
 
         $postalCode = 'BFPO58'; // Dhekelia
         $result = $vatCalculator->calculate($net, 'GB', $postalCode, false);
-        $this->assertEquals(28.56, $result);
-        $this->assertEquals(0.19, $vatCalculator->getTaxRate());
-        $this->assertEquals(4.56, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(28.56, $result, 0.01);
+        $this->assertEqualsWithDelta(0.19, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(4.56, $vatCalculator->getTaxValue(), 0.01);
 
         $postalCode = '9122'; // Madeira
         $result = $vatCalculator->calculate($net, 'PT', $postalCode, false);
-        $this->assertEquals(29.28, $result);
-        $this->assertEquals(0.22, $vatCalculator->getTaxRate());
-        $this->assertEquals(5.28, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(29.28, $result, 0.01);
+        $this->assertEqualsWithDelta(0.22, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(5.28, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testPostalCodesWithoutExceptionsGetStandardRate()
@@ -614,17 +614,17 @@ class VatCalculatorTest extends PHPUnit
         $postalCode = 'IGHJ987ERT35';
         $result = $vatCalculator->calculate($net, 'ES', $postalCode, false);
         //Expect standard rate for Spain
-        $this->assertEquals(29.04, $result);
-        $this->assertEquals(0.21, $vatCalculator->getTaxRate());
-        $this->assertEquals(5.04, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(29.04, $result, 0.01);
+        $this->assertEqualsWithDelta(0.21, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(5.04, $vatCalculator->getTaxValue(), 0.01);
 
         // Valid UK post code
         $postalCode = 'S1A 2AA';
         $result = $vatCalculator->calculate($net, 'GB', $postalCode, false);
         //Expect standard rate for UK
-        $this->assertEquals(28.80, $result);
-        $this->assertEquals(0.20, $vatCalculator->getTaxRate());
-        $this->assertEquals(4.80, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(28.80, $result, 0.01);
+        $this->assertEqualsWithDelta(0.20, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(4.80, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testShouldCollectVAT()
@@ -674,7 +674,7 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator($config);
         $result = $vatCalculator->calculateNet($gross);
-        $this->assertEquals(25.00, $result);
+        $this->assertEqualsWithDelta(25.00, $result, 0.01);
     }
 
     public function testCalculateNetPriceWithoutCountryAndConfig()
@@ -683,7 +683,7 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator();
         $result = $vatCalculator->calculateNet($gross);
-        $this->assertEquals(25.00, $result);
+        $this->assertEqualsWithDelta(25.00, $result, 0.01);
     }
 
     public function testCalculateNetPriceWithPredefinedRules()
@@ -707,9 +707,9 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator($config);
         $result = $vatCalculator->calculateNet($gross, $countryCode);
-        $this->assertEquals(24.00, $result);
-        $this->assertEquals(0.19, $vatCalculator->getTaxRate());
-        $this->assertEquals(4.56, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(24.00, $result, 0.01);
+        $this->assertEqualsWithDelta(0.19, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(4.56, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testCalculateNetPriceWithPredefinedRulesWithoutConfig()
@@ -719,9 +719,9 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator();
         $result = $vatCalculator->calculateNet($gross, $countryCode);
-        $this->assertEquals(24.00, $result);
-        $this->assertEquals(0.19, $vatCalculator->getTaxRate());
-        $this->assertEquals(4.56, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(24.00, $result, 0.01);
+        $this->assertEqualsWithDelta(0.19, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(4.56, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testCalculateNetPriceWithPredefinedRulesOverwrittenByConfiguration()
@@ -749,9 +749,9 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator($config);
         $result = $vatCalculator->calculateNet($gross, $countryCode);
-        $this->assertEquals(24.00, $result);
-        $this->assertEquals(0.50, $vatCalculator->getTaxRate());
-        $this->assertEquals(12.00, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(24.00, $result, 0.01);
+        $this->assertEqualsWithDelta(0.50, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(12.00, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testCalculateNetPriceWithCountryDirectSet()
@@ -777,9 +777,9 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator($config);
         $result = $vatCalculator->calculateNet($gross, $countryCode);
-        $this->assertEquals(24.00, $result);
-        $this->assertEquals(0.19, $vatCalculator->getTaxRate());
-        $this->assertEquals(4.56, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(24.00, $result, 0.01);
+        $this->assertEqualsWithDelta(0.19, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(4.56, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testCalculateNetPriceWithCountryDirectSetWithoutConfiguration()
@@ -790,9 +790,9 @@ class VatCalculatorTest extends PHPUnit
         $vatCalculator = new VatCalculator();
 
         $result = $vatCalculator->calculateNet($gross, $countryCode);
-        $this->assertEquals(24.00, $result);
-        $this->assertEquals(0.19, $vatCalculator->getTaxRate());
-        $this->assertEquals(4.56, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(24.00, $result, 0.01);
+        $this->assertEqualsWithDelta(0.19, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(4.56, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testCalculateNetPriceWithCountryPreviousSet()
@@ -820,9 +820,9 @@ class VatCalculatorTest extends PHPUnit
         $vatCalculator->setCountryCode($countryCode);
 
         $result = $vatCalculator->calculateNet($gross);
-        $this->assertEquals(24.00, $result);
-        $this->assertEquals(0.19, $vatCalculator->getTaxRate());
-        $this->assertEquals(4.56, $vatCalculator->getTaxValue());
+        $this->assertEqualsWithDelta(24.00, $result, 0.01);
+        $this->assertEqualsWithDelta(0.19, $vatCalculator->getTaxRate(), 0.01);
+        $this->assertEqualsWithDelta(4.56, $vatCalculator->getTaxValue(), 0.01);
     }
 
     public function testCalculateNetPriceWithCountryAndCompany()
@@ -843,7 +843,7 @@ class VatCalculatorTest extends PHPUnit
 
         $vatCalculator = new VatCalculator($config);
         $result = $vatCalculator->calculateNet($gross, $countryCode, $postalCode, $company);
-        $this->assertEquals(28.56, $result);
+        $this->assertEqualsWithDelta(28.56, $result, 0.01);
         $this->assertEquals(0, $vatCalculator->getTaxRate());
         $this->assertEquals(0, $vatCalculator->getTaxValue());
     }
@@ -866,7 +866,7 @@ class VatCalculatorTest extends PHPUnit
         $vatCalculator = new VatCalculator($config);
         $vatCalculator->setCompany($company);
         $result = $vatCalculator->calculateNet($gross, $countryCode);
-        $this->assertEquals(24.00, $result);
+        $this->assertEqualsWithDelta(24.00, $result, 0.01);
         $this->assertEquals(24.00, $vatCalculator->getNetPrice());
         $this->assertEquals(0, $vatCalculator->getTaxRate());
         $this->assertEquals(0, $vatCalculator->getTaxValue());
@@ -891,7 +891,7 @@ class VatCalculatorTest extends PHPUnit
         $vatCalculator->setCountryCode($countryCode);
         $vatCalculator->setCompany($company);
         $result = $vatCalculator->calculateNet($gross);
-        $this->assertEquals(24.00, $result);
+        $this->assertEqualsWithDelta(24.00, $result, 0.01);
         $this->assertEquals(0, $vatCalculator->getTaxRate());
         $this->assertEquals(0, $vatCalculator->getTaxValue());
     }
@@ -907,7 +907,7 @@ class VatCalculatorTest extends PHPUnit
         $vatCalculator = new VatCalculator();
         $result = $vatCalculator->calculate($gross, $countryCode, $postalCode, $company, $type);
 
-        $this->assertEquals(29.04, $result);
+        $this->assertEqualsWithDelta(29.04, $result, 0.01);
     }
 
     public function testCalculateLowVatType()
@@ -921,6 +921,6 @@ class VatCalculatorTest extends PHPUnit
         $vatCalculator = new VatCalculator();
         $result = $vatCalculator->calculate($gross, $countryCode, $postalCode, $company, $type);
 
-        $this->assertEquals(26.16, $result);
+        $this->assertEqualsWithDelta(26.16, $result, 0.01);
     }
 }

@@ -3,7 +3,7 @@
 namespace Consilience\VatCalculator;
 
 use Mockery as m;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 function config_path($path)
 {
@@ -20,12 +20,12 @@ function base_path($path)
     return 'base/'.$path;
 }
 
-class VatCalculatorServiceProviderTest extends PHPUnit_Framework_TestCase
+class VatCalculatorServiceProviderTest extends TestCase
 {
     /**
      * Calls Mockery::close.
      */
-    public function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }
