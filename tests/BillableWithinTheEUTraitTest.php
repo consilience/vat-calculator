@@ -4,11 +4,11 @@ namespace Consilience\VatCalculator\Tests;
 
 use Mockery as m;
 use Consilience\VatCalculator\Facades\VatCalculator;
-use PHPUnit_Framework_TestCase as PHPUnit;
+use PHPUnit\Framework\TestCase;
 
-class BillableWithinTheEUTraitTest extends PHPUnit
+class BillableWithinTheEUTraitTest extends TestCase
 {
-    public function tearDown()
+    protected function tearDown(): void
     {
         VatCalculator::clearResolvedInstances();
         m::close();

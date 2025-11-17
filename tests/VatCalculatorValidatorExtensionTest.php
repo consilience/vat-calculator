@@ -16,7 +16,7 @@ class VatCalculatorValidatorExtensionTest extends TestCase
     protected $rules;
     protected $messages;
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         m::close();
