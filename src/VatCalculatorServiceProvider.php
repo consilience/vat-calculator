@@ -123,7 +123,7 @@ class VatCalculatorServiceProvider extends ServiceProvider
     {
         $config = $this->app->make('Illuminate\Contracts\Config\Repository');
         if ($config->get('vat_calculator.use_routes', true)) {
-            include __DIR__ . '/routes.php';
+            $this->loadRoutesFrom(__DIR__ . '/routes.php');
         }
     }
 }
